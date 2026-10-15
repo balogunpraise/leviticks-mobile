@@ -5,11 +5,10 @@ import 'package:provider/provider.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../state/auth_provider.dart';
-import '../../state/theme_controller.dart';
 import '../../widgets/app_logo.dart';
 
 /// Mirrors the authenticated header in `src/components/layout/AttendeeLayout.tsx`:
-/// brand mark, theme toggle, and a profile avatar with a logout menu.
+/// brand mark and a profile avatar with a menu (Security, Settings, logout, etc.).
 class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
   const AppTopBar({super.key, this.title});
 
@@ -21,7 +20,6 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
-    final themeController = context.watch<ThemeController>();
     final initial = (auth.profile?.firstName.isNotEmpty ?? false)
         ? auth.profile!.firstName[0].toUpperCase()
         : (auth.profile?.email.isNotEmpty ?? false)
@@ -34,14 +32,6 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
           ? Text(title!, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16))
           : const AppLogo(height: 22),
       actions: [
-        IconButton(
-          onPressed: () => themeController.toggle(),
-          icon: Icon(
-            themeController.isDark ? LucideIcons.sun : LucideIcons.moon,
-            size: 18,
-            color: themeController.isDark ? AppColors.amber : AppColors.gray500,
-          ),
-        ),
         PopupMenuButton<String>(
           offset: const Offset(0, 44),
           onSelected: (value) async {
@@ -52,6 +42,8 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
               context.push('/security');
             } else if (value == 'organizer') {
               context.push('/become-organizer');
+            } else if (value == 'settings') {
+              context.push('/settings');
             }
           },
           itemBuilder: (context) => [
@@ -70,6 +62,16 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
                   Icon(LucideIcons.shieldCheck, size: 14, color: AppColors.gray500),
                   SizedBox(width: 8),
                   Text('Security'),
+                ],
+              ),
+            ),
+            const PopupMenuItem<String>(
+              value: 'settings',
+              child: Row(
+                children: [
+                  Icon(LucideIcons.settings, size: 14, color: AppColors.gray500),
+                  SizedBox(width: 8),
+                  Text('Settings'),
                 ],
               ),
             ),

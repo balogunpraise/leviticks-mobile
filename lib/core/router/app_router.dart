@@ -12,6 +12,7 @@ import '../../features/explore/explore_screen.dart';
 import '../../features/my_tickets/my_tickets_screen.dart';
 import '../../features/saved/saved_screen.dart';
 import '../../features/security/security_screen.dart';
+import '../../features/settings/settings_screen.dart';
 import '../../features/shell/attendee_shell.dart';
 import '../../features/splash/splash_screen.dart';
 import '../../features/ticket_detail/ticket_detail_screen.dart';
@@ -50,6 +51,7 @@ GoRouter buildRouter(AuthProvider auth) {
         ),
       ),
       GoRoute(path: '/security', builder: (context, state) => const SecurityScreen()),
+      GoRoute(path: '/settings', builder: (context, state) => const SettingsScreen()),
       GoRoute(path: '/become-organizer', builder: (context, state) => const BecomeOrganizerScreen()),
       GoRoute(
         path: '/event/:id',

@@ -69,6 +69,24 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
 
+  # Generates the native app icon files from assets/icon/app_icon.png.
+  flutter_launcher_icons: ^0.14.3
+
+# Config for flutter_launcher_icons — `dart run flutter_launcher_icons` regenerates
+# android/app/src/main/res/mipmap-*/ic_launcher.png and ios/Runner/Assets.xcassets/AppIcon.appiconset
+# from this one source image.
+flutter_launcher_icons:
+  image_path: "assets/icon/app_icon.png"
+  android: true
+  ios: true
+  # The source has an (fully opaque) alpha channel; App Store Connect rejects
+  # iOS icons that carry one at all, so flatten it to RGB for iOS specifically.
+  remove_alpha_ios: true
+  # The source image already has its own opaque #1A1A1A background baked in — reuse
+  # it as the adaptive icon's foreground too so Android 8+ renders the same mark.
+  adaptive_icon_background: "#1A1A1A"
+  adaptive_icon_foreground: "assets/icon/app_icon.png"
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
